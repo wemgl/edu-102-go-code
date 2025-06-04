@@ -2,6 +2,7 @@ package translation
 
 import (
 	"fmt"
+	"go.temporal.io/sdk/log"
 	"time"
 
 	"go.temporal.io/sdk/workflow"
@@ -12,6 +13,10 @@ func SayHelloGoodbye(ctx workflow.Context, input TranslationWorkflowInput) (Tran
 		StartToCloseTimeout: time.Second * 45,
 	}
 	ctx = workflow.WithActivityOptions(ctx, options)
+
+	logger := workflow.GetLogger(ctx)
+	logger = log.With(logger, "version", "v0.1.0")
+	logger.Info("Starting SayHelloGoodbye workflow")
 
 	helloInput := TranslationActivityInput{
 		Term:         "Hello",
@@ -39,6 +44,7 @@ func SayHelloGoodbye(ctx workflow.Context, input TranslationWorkflowInput) (Tran
 		HelloMessage:   helloMessage,
 		GoodbyeMessage: goodbyeMessage,
 	}
+	logger.Info("Completed SayHelloGoodbye workflow")
 
 	return output, nil
 }
