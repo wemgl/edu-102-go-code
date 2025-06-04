@@ -42,43 +42,67 @@ following questions:
 
 1. Did it use sticky execution for all Workflow Tasks following the 
    first one?
+   * **Answer: Yes, it does.**
    * Hint: It's possible to determine this without expanding any of the
      Events in the Web UI, but you may also check the `WorkflowTaskScheduled` Events for confirmation.
 2. What is the Activity Type for the first Activity executed?
+   * **Answer: GetDistance**
 3. Which of the 2 Workers started execution of the first Activity?  
    * Was it the one running in your first terminal or the second?
+     * **Answer: The one in my first terminal**
    * Did the same Worker complete execution of this Activity?
+      * Answer: Yes
 4. Following execution of the first Activity, which of the following 
    happened next?
    * A) Another Activity was executed
-   * B) A Timer was started
+   * **B) A Timer was started**
    * C) Workflow Execution failed due to an error
    * D) Workflow Execution completed successfully
 5. What was the duration specified for the Timer used to delay execution?
    * Hint: this is shown as a timeout in the relevant Event
+   * **Answer: 3s**
 6. Find the Event associated with the Worker completing execution of 
    the `GetDistance` Activity
    * What is the ID for this Event?
+     * **Answer: 7**
    * What is the ID of the Event logged when this Activity was started 
      by the Worker?
+      * **Answer: 6**
    * What is the ID of the Event logged when this Activity was scheduled 
      by the Cluster?
+      * **Answer: 5**
 7. Can you find the input data supplied as a parameter to the
    `GetDistance` Activity?
+
+```json
+[{"Line1":"701 Mission Street","Line2":"Apartment 9C","City":"San Francisco","State":"CA","PostalCode":"94103"}]
+```
+
 8. Can you find the output data returned as output from the
    `GetDistance` Activity?
+
+```json
+[{"Kilometers":20}]
+```
+
 9. What was the Maximum Interval value for the Retry Policy used to 
    execute the `SendBill` Activity?
+   * **Answer: 10s**
 10. What was the Start-to-Close Timeout value used when executing
    the `SendBill` Activity?
+    * **Answer: 5s**
 
 
 Take a moment to switch to the Compact view, and if one of the rows in the 
 table is expanded, click to collapse it. Do you find that this view makes 
 it easier to see the Activities and Timer that ran during the execution?
 
+**Answer: Yes!**
+
 Click "Expand All" near the upper-right corner of this table. Do you find 
 that this helps you to correlate Events related to the Activities and Timer?
+
+**Answer: Yes, a little.**
 
 Since the Web UI remembers the current view, be sure to click "Collapse All" 
 and switch back to the History view before continuing.
@@ -86,10 +110,10 @@ and switch back to the History view before continuing.
 
 ## Part C: Finding an Activity Bug
 
-The pizza shop is running a special this month, offering a $5 discount 
-on all orders over $30. One of your co-workers has already implemented 
+The pizza shop is running a special this month, offering a \$5 discount 
+on all orders over \$30. One of your co-workers has already implemented 
 the business logic for this, although the order for the Workflow you 
-just ran was only $27, not enough to qualify for the discount. 
+just ran was only \$27, not enough to qualify for the discount. 
 
 Note that the code models prices in cents (for example, $27 is represented 
 as 2700) in order to avoid the problems that occur when a computer program 
@@ -136,7 +160,7 @@ layout.
    * Change the comment next to the `Amount` field to say 
      `amount qualifies for discount`
    * Change the expected price in the `assert.Equal` statement to `6000`, 
-     which is the $65 amount minus the $5 discount.
+     which is the $65 amount minus the \$5 discount.
 4. Save the changes and close the editor
 5. Run `go test`. Since you have not yet fixed the bug, the test will fail.
 6. Open the `activities.go` file in the editor and find where the `SendBill` 

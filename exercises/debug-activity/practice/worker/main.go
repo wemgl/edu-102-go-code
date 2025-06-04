@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	pizza "temporal102/exercises/debug-activity/practice"
+	"pizza"
 
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/worker"
